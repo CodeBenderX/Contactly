@@ -45,11 +45,20 @@ def update_contact(id):
       return contact
     
     return 'That contact does not exist!', 404
-  
+
+@app.delete('/contacts/<id>')
+def delete_contact(id):
+   for contact in contacts:
+     if contact['id'] == id:
+       contacts.remove(contact)
+       return f'Contact with id {id} has been deleted!', 200
+
+   return 'There is no contact with that id!', 404
+
 #GET /contacts - list all contacts
 #GET /contacts/<id> - read a single contact by id
 #POST /contacts - create a new contact
-#Update /contacts/<id> - update a contact by id
+#PUT /contacts/<id> - update a contact by id
 #DELETE /contacts/<id> - delete a contact by id
 
 if __name__ == '__main__':

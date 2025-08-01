@@ -36,9 +36,21 @@ def create_contact():
   contacts.append(new_contact)
   return new_contact, 201
 
+@app.put('/contacts/<id>')
+def update_contact(id):
+  for contact in contacts:
+    if contact['id'] == id:
+      contact['name'] = request.json['name'] if 'name' in request.json else contact['name']
+      contact['phone'] - request.json['phone'] if 'phone' in request.json else contact['phone']
+      return contact
+    
+    return 'That contact does not exist!', 404
+  
 #GET /contacts - list all contacts
 #GET /contacts/<id> - read a single contact by id
 #POST /contacts - create a new contact
+#Update /contacts/<id> - update a contact by id
+#DELETE /contacts/<id> - delete a contact by id
 
 if __name__ == '__main__':
   app.run(debug=True)
